@@ -7,6 +7,7 @@ import {FruityNft} from "../src/FruityNft.sol";
 import {Test, console} from "forge-std/Test.sol";
 import {StdCheats} from "forge-std/StdCheats.sol";
 import {MintFruityNft} from "../script/Interactions.s.sol";
+import {Base64} from "@openzeppelin/contracts/utils/Base64.sol";
 
 contract FruityNftTest is StdCheats, Test {
     string constant NFT_NAME = "Fruity NFT";
@@ -45,10 +46,30 @@ contract FruityNftTest is StdCheats, Test {
     function testTokenURIIsCorrect() public {
         vm.prank(USER);
         fruityNft.mintNft(FRUITY_URI);
+        string memory base64tokenUri = string(
+            string.concat(
+                "data:application/json;base64,",
+                Base64.encode(
+                    bytes(
+                        string.concat(
+                            '{"name": "',
+                            NFT_NAME,
+                            '", "description": "A dynamic NFT representing the Fruity Friend profile", "attributes": [{"trait_type": "worldcoin_verified", "value": "',
+                            "false",
+                            '"}, {"trait_type": "polygon_ID_verified", "value": "',
+                            "false",
+                            '"}], "image": "',
+                            FRUITY_URI,
+                            '"}'
+                        )
+                    )
+                )
+            )
+        );
 
         assert(
             keccak256(abi.encodePacked(fruityNft.tokenURI(0))) ==
-                keccak256(abi.encodePacked(FRUITY_URI))
+                keccak256(abi.encodePacked(base64tokenUri))
         );
     }
 
