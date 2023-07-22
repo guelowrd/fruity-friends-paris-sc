@@ -43,6 +43,25 @@ contract FruityNftTest is StdCheats, Test {
         assert(fruityNft.balanceOf(USER) == 1);
     }
 
+    function testIsXxxVerified() public {
+        vm.prank(USER);
+        fruityNft.mintNft(FRUITY_URI);
+
+        assert(fruityNft.isWorldcoinVerified(0) == false);
+        assert(fruityNft.isPolygonIdVerified(0) == false);
+    }
+
+    function testVerifyWithXxx() public {
+        vm.startPrank(USER);
+        fruityNft.mintNft(FRUITY_URI);
+        fruityNft.verifyWithWorldcoin(0);
+        fruityNft.verifyWithPolygonId(0);
+        vm.stopPrank();
+
+        assert(fruityNft.isWorldcoinVerified(0) == true);
+        assert(fruityNft.isPolygonIdVerified(0) == true);
+    }
+
     function testTokenURIIsCorrect() public {
         vm.prank(USER);
         fruityNft.mintNft(FRUITY_URI);

@@ -38,6 +38,9 @@ NETWORK_ARGS := --rpc-url http://localhost:8545 --private-key $(DEFAULT_ANVIL_KE
 ifeq ($(findstring --network sepolia,$(ARGS)),--network sepolia)
 	NETWORK_ARGS := --rpc-url $(SEPOLIA_RPC_URL) --private-key $(PRIVATE_KEY) --broadcast --verify --etherscan-api-key $(ETHERSCAN_API_KEY) -vvvv
 endif
+ifeq ($(findstring --network mantle_testnet,$(ARGS)),--network mantle_testnet)
+	NETWORK_ARGS := --rpc-url $(MANTLE_TESTNET_RPC_URL) --private-key $(PRIVATE_KEY) --broadcast --verify --etherscan-api-key $(ETHERSCAN_API_KEY) --legacy -vvvv
+endif
 
 deploy:
 	@forge script script/DeployFruityNft.s.sol:DeployFruityNft $(NETWORK_ARGS)

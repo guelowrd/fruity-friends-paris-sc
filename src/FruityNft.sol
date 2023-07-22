@@ -1,3 +1,24 @@
+// Layout of Contract:
+// version
+// imports
+// errors
+// interfaces, libraries, contracts
+// Type declarations
+// State variables
+// Events
+// Modifiers
+// Functions
+
+// Layout of Functions:
+// constructor
+// receive function (if exists)
+// fallback function (if exists)
+// external
+// public
+// internal
+// private
+// view & pure functions
+
 // SPDX-License-Identifier: MIT
 
 pragma solidity ^0.8.18;
@@ -21,8 +42,26 @@ contract FruityNft is ERC721 {
         s_tokenCounter++;
     }
 
+    function verifyWithWorldcoin(uint256 tokenId) public {
+        // Worldcoin verification logic should be here
+        s_tokenIdToWorldcoinVerified[tokenId] = true;
+    }
+
+    function verifyWithPolygonId(uint256 tokenId) public {
+        // Polygon ID verification logic should be here
+        s_tokenIdToPolygonIdVerified[tokenId] = true;
+    }
+
     function getTokenCounter() public view returns (uint256) {
         return s_tokenCounter;
+    }
+
+    function isWorldcoinVerified(uint256 tokenId) public view returns (bool) {
+        return s_tokenIdToWorldcoinVerified[tokenId];
+    }
+
+    function isPolygonIdVerified(uint256 tokenId) public view returns (bool) {
+        return s_tokenIdToPolygonIdVerified[tokenId];
     }
 
     function _baseURI() internal pure override returns (string memory) {
