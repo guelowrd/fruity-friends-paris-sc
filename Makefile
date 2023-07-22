@@ -41,6 +41,12 @@ endif
 ifeq ($(findstring --network mantle_testnet,$(ARGS)),--network mantle_testnet)
 	NETWORK_ARGS := --rpc-url $(MANTLE_TESTNET_RPC_URL) --private-key $(PRIVATE_KEY) --broadcast --verify --etherscan-api-key $(ETHERSCAN_API_KEY) --legacy -vvvv
 endif
+ifeq ($(findstring --network neon_devnet,$(ARGS)),--network neon_devnet)
+	NETWORK_ARGS := --rpc-url $(NEON_DEVNET_RPC_URL) --private-key $(PRIVATE_KEY) --broadcast --verify --etherscan-api-key $(ETHERSCAN_API_KEY) --legacy -vvvv
+endif
+ifeq ($(findstring --network polygonzkevm_testnet,$(ARGS)),--network polygonzkevm_testnet)
+	NETWORK_ARGS := --rpc-url $(POLYGONZKEVM_TESTNET_RPC_URL) --private-key $(PRIVATE_KEY) --broadcast --verify --etherscan-api-key $(ZKEVMPOLYGONSCAN_API_KEY) --legacy -vvvv
+endif
 
 deploy:
 	@forge script script/DeployFruityNft.s.sol:DeployFruityNft $(NETWORK_ARGS)

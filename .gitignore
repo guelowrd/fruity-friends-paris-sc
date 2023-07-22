@@ -6,6 +6,8 @@ out/
 !/broadcast
 /broadcast/*/31337/
 /broadcast/*/5001/
+/broadcast/*/1442/
+/broadcast/*/245022926/
 /broadcast/**/dry-run/
 
 # Docs
